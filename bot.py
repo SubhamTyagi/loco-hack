@@ -210,13 +210,10 @@ def take_screenshot_and_get_text(demo):
     # store grayscale image as a temp file to apply OCR
     filename = "screen{}.png".format(os.getpid())
     cv2.imwrite(filename, gray)
-    # cv2.imwrite(screenshot_file,gray)
-
+    
     # load the image as a PIL/Pillow image, apply OCR, and then delete the temporary file
     # TODO: here is error but why i am not finding it ?
     text = pytesseract.image_to_string(Image.open(filename))
-
-    # text = pytesseract.image_to_string(Image.open(screenshot_file))
     # os.remove(filename)
     # os.remove(screenshot_file)
 
