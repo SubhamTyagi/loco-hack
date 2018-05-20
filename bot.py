@@ -1,7 +1,6 @@
 """
 
     TODO:
-    * Implement normalize function
     * Attempt to google wiki \"...\" part of question
     * Rid of common appearances in 3 options
     * Automate screenshot process
@@ -246,6 +245,24 @@ def parse_question(demo):
     return question, options
 
 
+# return points for sample_questions sample # QUESTION: are in Data/questions.json file
+def get_points_sample():
+    simq = ""
+    x = 0
+    for key in sample_questions:
+        x = x + 1
+        points = []
+        simq, neg = simplify_ques(key)
+        options = sample_questions[key]
+        simq = simq.lower()
+        maxo = ""
+        points, maxo = google_wiki(simq, options, neg)
+        print("\n" + str(x) + ". " + bcolors.UNDERLINE + key + bcolors.ENDC + "\n")
+        for point, option in zip(points, options):
+            if maxo == option.lower():
+                option = bcolors.OKGREEN + option + bcolors.ENDC
+            print(option + " { points: " + bcolors.BOLD + str(point) + bcolors.ENDC + " }\n")
+
 # return points for live game // by screenshot
 def get_points_live(demo):
     neg = False
@@ -270,12 +287,13 @@ if __name__ == "__main__":
     load_json()
     while (1):
         keypressed = raw_input(
-            bcolors.WARNING + '\nPress s to screenshot live game, demo to run against sample questions '
+            bcolors.WARNING + '\nPress s or Enter to screenshot live game, d to run against sample questions '
                               'or q to quit:\n' + bcolors.ENDC)
         if keypressed == 's':
             get_points_live(False)
         elif keypressed == 'd':
             get_points_live(True)
+            #TODO: get_points_sample()
         elif keypressed == 'q':
             break
         else:
