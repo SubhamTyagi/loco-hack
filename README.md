@@ -1,7 +1,7 @@
 # LOCO-HACK
 ![License: MIT][ico-license]
 
-## INCOMPLETE!!
+# Have some error but i am doing my best for it!!
 ## RELASING SOON...
 
 A bot to help answer questions on trivia apps like LOCO. This bot takes screenshot of the game from phone and uses googles tesseract OCR to read the questions and options. It automates the process of googling of the answers and gives the most likely answer! It is 85%+ accurate!
