@@ -50,9 +50,9 @@ negative_words = []
 # load sample questions
 def load_json():
     global remove_words, sample_questions, negative_words
-    remove_words = json.loads(open("Data/settings.json").read())["remove_words"]
-    negative_words = json.loads(open("Data/settings.json").read())["negative_words"]
-    sample_questions = json.loads(open("Data/questions.json").read())
+    remove_words = json.loads(open("libs/settings.json").read())["remove_words"]
+    negative_words = json.loads(open("libs/settings.json").read())["negative_words"]
+    sample_questions = json.loads(open("libs/questions.json").read())
 
 
 # simplify question and remove which,what....etc //question is string
@@ -245,7 +245,7 @@ def parse_question(demo):
     return question, options
 
 
-# return points for sample_questions sample # QUESTION: are in Data/questions.json file
+# return points for sample_questions sample # QUESTION: are in libs/questions.json file
 def get_points_sample():
     simq = ""
     x = 0
