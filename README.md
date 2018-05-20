@@ -1,4 +1,4 @@
-# LOCO_HACK
+# LOCO-HACK
 ![License: MIT][ico-license]
 
 ## INCOMPLETE!!
