@@ -22,6 +22,7 @@ import cv2
 import os
 import sys
 
+
 from halo import Halo
 
 
@@ -181,6 +182,12 @@ def take_screenshot_and_get_text(demo):
         os.system("adb exec-out screencap -p > screen.png")
         screenshot_file = "screen.png"
 
+    i = Image.open('screen.png')
+    width, height = i.size
+    frame = i.crop((0, 470, width, height))
+    os.remove(screenshot_file)
+    frame.save(screenshot_file)
+
     spinner = Halo(text='Reading screen', spinner='bouncingBar')
     spinner.start()
 
@@ -197,14 +204,18 @@ def take_screenshot_and_get_text(demo):
     if args["preprocess"] == "thresh":
         gray = cv2.threshold(gray, 0, 255,cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
     elif args["preprocess"] == "blur":
-        gray = cv2.medianBlur(gray, 3)
+        gray = cv2.medianBlur(gray, 2)
 
     # store grayscale image as a temp file to apply OCR
     filename = "screen{}.png".format(os.getpid())
     cv2.imwrite(filename, gray)
+    # cv2.imwrite(screenshot_file,gray)
 
     # load the image as a PIL/Pillow image, apply OCR, and then delete the temporary file
+    # TODO: here is error but why i am not finding it ?
     text = pytesseract.image_to_string(Image.open(filename))
+
+    # text = pytesseract.image_to_string(Image.open(screenshot_file))
     # os.remove(filename)
     # os.remove(screenshot_file)
 
