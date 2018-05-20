@@ -175,6 +175,8 @@ def get_points_sample():
 # take screenshot from phone (if not demo) and return text from that screenshot, if demo flag is true it use screendemo.png file
 def take_screenshot_and_get_text(demo):
     # screenshot_file =''
+    spinner = Halo(text='Reading screen', spinner='bouncingBar')
+    spinner.start()
 
     if demo:
         screenshot_file = "screendemo.png"
@@ -188,8 +190,7 @@ def take_screenshot_and_get_text(demo):
     os.remove(screenshot_file)
     frame.save(screenshot_file)
 
-    spinner = Halo(text='Reading screen', spinner='bouncingBar')
-    spinner.start()
+   
 
     # prepare argparse
     ap = argparse.ArgumentParser(description='LOCO_BOT')
