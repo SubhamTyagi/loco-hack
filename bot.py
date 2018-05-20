@@ -172,7 +172,7 @@ def get_points_sample():
             print(option + " { points: " + bcolors.BOLD + str(point) + bcolors.ENDC + " }\n")
 
 
-# take screenshot from phone and return text from that screenshot if it is not demo
+# take screenshot from phone (if not demo) and return text from that screenshot, if demo flag is true it use screendemo.png file
 def take_screenshot_and_get_text(demo):
     # screenshot_file =''
 
@@ -182,7 +182,7 @@ def take_screenshot_and_get_text(demo):
         os.system("adb exec-out screencap -p > screen.png")
         screenshot_file = "screen.png"
 
-    i = Image.open('screen.png')
+    i = Image.open(screenshot_file)
     width, height = i.size
     frame = i.crop((0, 470, width, height))
     os.remove(screenshot_file)
