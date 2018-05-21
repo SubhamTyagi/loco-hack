@@ -36,6 +36,8 @@ Use python 2.7  or you can use python37(some compatibility issues )particular th
 
 Make sure all packages above are installed. For android phones use, To use this script :
 
+Connect you Android phone via usb cable start loco app when you see questions press l and enter
+
 ```bash
 $ git clone https://github.com/SubhamTyagi/loco-hack
 $ cd loco-hack
