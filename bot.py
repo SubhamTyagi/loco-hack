@@ -22,7 +22,6 @@ import cv2
 import os
 import sys
 
-
 from halo import Halo
 
 
@@ -172,9 +171,8 @@ def get_points_sample():
             print(option + " { points: " + bcolors.BOLD + str(point) + bcolors.ENDC + " }\n")
 
 
-# take screenshot from phone (if not demo) and return text from that screenshot, if demo flag is true it use screendemo.png file
+# take screenshot from phone and return text from that screenshot if it is not demo
 def take_screenshot_and_get_text(demo):
-    # screenshot_file =''
     spinner = Halo(text='Reading screen', spinner='bouncingBar')
     spinner.start()
 
@@ -184,51 +182,59 @@ def take_screenshot_and_get_text(demo):
         os.system("adb exec-out screencap -p > screen.png")
         screenshot_file = "screen.png"
 
+    # save a croped image to temp.png file
     i = Image.open(screenshot_file)
     width, height = i.size
-    frame = i.crop((0, 470, width, height))
-    os.remove(screenshot_file)
-    frame.save(screenshot_file)
+    frame = i.crop((0, 470, width, height - 300))
 
-   
-
-    # prepare argparse
-    ap = argparse.ArgumentParser(description='LOCO_BOT')
-    ap.add_argument("-i", "--image", required=False, default=screenshot_file, help="path to input image to be OCR'd")
-    ap.add_argument("-p", "--preprocess", type=str, default="thresh", help="type of preprocessing to be done")
-    args = vars(ap.parse_args())
+    filename = 'temp.png'
+    frame.save(filename)
 
     # load the image
-    image = cv2.imread(args["image"])
+    image = cv2.imread(filename)
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    gray = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
 
-    if args["preprocess"] == "thresh":
-        gray = cv2.threshold(gray, 0, 255,cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
-    elif args["preprocess"] == "blur":
-        gray = cv2.medianBlur(gray, 2)
-
+    # gray = cv2.medianBlur(gray, 2)
     # store grayscale image as a temp file to apply OCR
-    filename = "screen{}.png".format(os.getpid())
-    cv2.imwrite(filename, gray)
-    
-    # load the image as a PIL/Pillow image, apply OCR, and then delete the temporary file
-    # TODO: here is error but why i am not finding it ?
-    text = pytesseract.image_to_string(Image.open(filename))
-    # os.remove(filename)
-    # os.remove(screenshot_file)
 
-    # show the output images
+    filename2 = "screen{}.png".format(os.getpid())
+    cv2.imwrite(filename2, gray)
+    i = Image.open(filename2)
 
-    '''cv2.imshow("Image", image)
-    cv2.imshow("Output", gray)
-    os.remove(screenshot_file)
-    if cv2.waitKey(0):
-        cv2.destroyAllWindows()
-    print(text)
-    '''
+    frame = i.crop((0, 0, width, 150))
+    frame.save('quest.png')
+
+    frame = i.crop((120, 160, width - 120, 240))
+    frame.save('A.png')
+
+    frame = i.crop((120, 300, width - 120, 370))
+    frame.save('B.png')
+
+    frame = i.crop((120, 430, width - 120, 510))
+    frame.save('C.png')
+
+    question = pytesseract.image_to_string(Image.open('quest.png'))
+    option_A = pytesseract.image_to_string(Image.open('A.png'))
+    option_B = pytesseract.image_to_string(Image.open('B.png'))
+    option_C = pytesseract.image_to_string(Image.open('C.png'))
+
+    '''os.remove(filename2)
+    os.remove(filename)
+    os.remove('quest.png')
+    os.remove('A.png')
+    os.remove('B.png')
+    os.remove('C.png')'''
+    # TODO: os.remove(screenshot_file)
+
+    print(question)
+    print '1   ' + option_A
+    print '2   ' + option_B
+    print '3   ' + option_C
+
     spinner.succeed()
     spinner.stop()
-    return text
+    return question, option_A, option_B, option_C
 
 
 # get questions and options from OCR text
@@ -272,6 +278,7 @@ def get_points_sample():
                 option = bcolors.OKGREEN + option + bcolors.ENDC
             print(option + " { points: " + bcolors.BOLD + str(point) + bcolors.ENDC + " }\n")
 
+
 # return points for live game // by screenshot
 def get_points_live(demo):
     neg = False
@@ -302,7 +309,7 @@ if __name__ == "__main__":
             get_points_live(False)
         elif keypressed == 'd':
             get_points_live(True)
-            #TODO: get_points_sample()
+            # TODO: get_points_sample()
         elif keypressed == 'q':
             break
         else:
