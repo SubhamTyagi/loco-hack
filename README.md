@@ -1,8 +1,7 @@
 # LOCO-HACK
 ![License: MIT][ico-license]
 
-# Have some error but i am doing my best for it!!
-## RELASING SOON...
+
 
 A bot to help answer questions on trivia apps like LOCO. This bot takes screenshot of the game from phone and uses googles tesseract OCR to read the questions and options. It automates the process of googling of the answers and gives the most likely answer! It is 85%+ accurate!
 
@@ -38,23 +37,21 @@ Use python 2.7  or you can use python37(some compatibility issues )particular th
 Make sure all packages above are installed. For android phones use, To use this script :
 
 ```bash
-$ git clone https://github.com/SubhamTyagi/LOCO_HACK
-$ cd LOCO_HACK
+$ git clone https://github.com/SubhamTyagi/loco-hack
+$ cd loco-hack
 $ pip install -r requirements.txt
 $ python bot.py
 
-Press s or Enter to screenshot live game, d to run against sample questions or q to quit:
+Press l for live game, s to run against sample questions or q to quit:
 s
 ...Question...
 ```
-## Screenshots
-
-
-
 
 ## Contributing
 
 All contributions welcome.
+
+## TODO: Improving speed
 
 ## Credits
 - [SHUBHAM TYAGI][link-author]
