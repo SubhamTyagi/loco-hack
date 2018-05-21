@@ -3,10 +3,8 @@
     TODO:
     * Attempt to google wiki \"...\" part of question
     * Rid of common appearances in 3 options
-    * Automate screenshot process
     * Implement Asynchio for concurrency
-    //Script is in working condition at all times with python27
-    //TODO is for improving accuracy
+    //TODO is for improving speed
 
 """
 
@@ -17,7 +15,6 @@ from bs4 import BeautifulSoup
 from google import google
 from PIL import Image
 import pytesseract
-import argparse
 import cv2
 import os
 import sys
@@ -37,8 +34,7 @@ class bcolors:
     UNDERLINE = '\033[4m'
 
 
-# sample questions from previous games
-sample_questions = {}
+
 
 # list of words to clean from the question during google search
 remove_words = []
@@ -49,10 +45,10 @@ negative_words = []
 
 # load sample questions
 def load_json():
-    global remove_words, sample_questions, negative_words
+    global remove_words, sample, negative_words
     remove_words = json.loads(open("libs/settings.json").read())["remove_words"]
     negative_words = json.loads(open("libs/settings.json").read())["negative_words"]
-    sample_questions = json.loads(open("libs/questions.json").read())
+
 
 
 # simplify question and remove which,what....etc //question is string
@@ -223,26 +219,6 @@ def take_screenshot_and_get_text(demo):
     spinner.stop()
     return question, options
 
-
-# return points for sample_questions sample # QUESTION: are in libs/questions.json file
-def get_points_sample():
-    simq = ""
-    x = 0
-    for key in sample_questions:
-        x = x + 1
-        points = []
-        simq, neg = simplify_ques(key)
-        options = sample_questions[key]
-        simq = simq.lower()
-        maxo = ""
-        points, maxo = google_wiki(simq, options, neg)
-        print("\n" + str(x) + ". " + bcolors.UNDERLINE + key + bcolors.ENDC + "\n")
-        for point, option in zip(points, options):
-            if maxo == option.lower():
-                option = bcolors.OKGREEN + option + bcolors.ENDC
-            print(option + " { points: " + bcolors.BOLD + str(point) + bcolors.ENDC + " }\n")
-
-
 # return points for live game // by screenshot
 def get_points_live(demo):
     neg = False
@@ -267,11 +243,11 @@ if __name__ == "__main__":
     load_json()
     while (1):
         keypressed = raw_input(
-            bcolors.WARNING + '\nPress s or Enter to screenshot live game, d to run against sample questions '
-                              'or q to quit:\n' + bcolors.ENDC)
-        if keypressed == 's':
+            bcolors.WARNING + '\nPress l for live game, s  to run against sample questions '
+                              'or q for quit:\n' + bcolors.ENDC)
+        if keypressed == 'l':
             get_points_live(False)
-        elif keypressed == 'd':
+        elif keypressed == 's':
             get_points_live(True)
             # TODO: get_points_sample()
         elif keypressed == 'q':
