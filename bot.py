@@ -152,25 +152,6 @@ def google_wiki(sim_ques, options, neg):
     return points, maxo
 
 
-# return points for sample_questions
-def get_points_sample():
-    simq = ""
-    x = 0
-    for key in sample_questions:
-        x = x + 1
-        points = []
-        simq, neg = simplify_ques(key)
-        options = sample_questions[key]
-        simq = simq.lower()
-        maxo = ""
-        points, maxo = google_wiki(simq, options, neg)
-        print("\n" + str(x) + ". " + bcolors.UNDERLINE + key + bcolors.ENDC + "\n")
-        for point, option in zip(points, options):
-            if maxo == option.lower():
-                option = bcolors.OKGREEN + option + bcolors.ENDC
-            print(option + " { points: " + bcolors.BOLD + str(point) + bcolors.ENDC + " }\n")
-
-
 # take screenshot from phone and return text from that screenshot if it is not demo
 def take_screenshot_and_get_text(demo):
     spinner = Halo(text='Reading screen', spinner='bouncingBar')
@@ -219,6 +200,10 @@ def take_screenshot_and_get_text(demo):
     option_B = pytesseract.image_to_string(Image.open('B.png'))
     option_C = pytesseract.image_to_string(Image.open('C.png'))
 
+    options = list()
+    options.append(option_A)
+    options.append(option_B)
+    options.append(option_C)
     '''os.remove(filename2)
     os.remove(filename)
     os.remove('quest.png')
@@ -234,29 +219,6 @@ def take_screenshot_and_get_text(demo):
 
     spinner.succeed()
     spinner.stop()
-    return question, option_A, option_B, option_C
-
-
-# get questions and options from OCR text
-def parse_question(demo):
-    text = take_screenshot_and_get_text(demo)
-    lines = text.splitlines()
-    question = ""
-    options = list()
-    flag = False
-
-    for line in lines:
-        if not flag:
-            question = question + " " + line
-
-        if '?' in line:
-            flag = True
-            continue
-
-        if flag:
-            if line != '':
-                options.append(line)
-
     return question, options
 
 
@@ -282,7 +244,7 @@ def get_points_sample():
 # return points for live game // by screenshot
 def get_points_live(demo):
     neg = False
-    question, options = parse_question(demo)
+    question, options = take_screenshot_and_get_text(demo)
     simq = ""
     points = []
     simq, neg = simplify_ques(question)
