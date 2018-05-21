@@ -166,7 +166,7 @@ def take_screenshot_and_get_text(demo):
     # save a croped image to temp.png file
     i = Image.open(screenshot_file)
     width, height = i.size
-    frame = i.crop((0, 470, width, height - 300))
+    frame = i.crop((0, 470, width, height - 200))
 
     filename = 'temp.png'
     frame.save(filename)
@@ -174,7 +174,7 @@ def take_screenshot_and_get_text(demo):
     # load the image
     image = cv2.imread(filename)
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    gray = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
+    gray = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY_INV| cv2.THRESH_OTSU)[1]
 
     # gray = cv2.medianBlur(gray, 2)
     # store grayscale image as a temp file to apply OCR
@@ -204,6 +204,8 @@ def take_screenshot_and_get_text(demo):
     options.append(option_A)
     options.append(option_B)
     options.append(option_C)
+
+
     '''os.remove(filename2)
     os.remove(filename)
     os.remove('quest.png')
@@ -212,7 +214,7 @@ def take_screenshot_and_get_text(demo):
     os.remove('C.png')'''
     # TODO: os.remove(screenshot_file)
 
-    print(question)
+    print('\n'+ question)
     print '1   ' + option_A
     print '2   ' + option_B
     print '3   ' + option_C
