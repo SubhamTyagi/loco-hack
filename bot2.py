@@ -123,9 +123,9 @@ def get_screen_shot(demo):
 
 
 # TODO: when you run against the live game set
-
+demo = True
 # TODO: when you run against the live game uncomment the following line
-demo = False
+#demo = False
 if __name__ == "__main__":
     while True:
         raw_input("When you see question press Enter")
