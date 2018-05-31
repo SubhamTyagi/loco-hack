@@ -53,6 +53,10 @@ s
 
 All contributions welcome.
 
+## ANDROID APP 
+
+Loco Answers[link-app]
+
 ## TODO: Improving speed
 
 ## Credits
@@ -79,4 +83,6 @@ The MIT License (MIT)
 [link-gapi]: https://github.com/abenassi/Google-Search-API
 [link-mike]: https://github.com/mikealmond/hq-trivia-assistant
 [link-tesseract]: https://github.com/tesseract-ocr/tesseract/wiki
+[loco-app]: https://github.com/SubhamTyagi/loco-answers
+
 [sampq]: ()
