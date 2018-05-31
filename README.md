@@ -55,7 +55,7 @@ All contributions welcome.
 
 ## ANDROID APP 
 
-Loco Answers[link-app]
+- Open source android app [Loco Answers][link-app]
 
 ## TODO: Improving speed
 
