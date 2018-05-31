@@ -26,7 +26,8 @@ Use python 2.7  or you can use python37(some compatibility issues )particular th
 2. Install above packages
     * `$ pip install -r requirements.txt`
 3. For tesseract
-    * `$ brew install tesseract`
+
+    * `$ sudo apt-get install tesseract-ocr` in linux distribution
 4. For opencv
     * `$ brew install opencv`
 5. Android adb
