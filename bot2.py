@@ -122,7 +122,7 @@ def get_screen_shot(demo):
     os.remove('C.png')
 
 
-# TODO: when you run against the live game set
+# TODO: when you run against the demo mode set demo = True
 demo = True
 # TODO: when you run against the live game uncomment the following line
 #demo = False
