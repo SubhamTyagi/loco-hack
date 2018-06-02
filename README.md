@@ -62,7 +62,7 @@ All contributions welcome.
 
 ## ANDROID APP 
 
--[Loco Answers][link-app]
+- [Loco Answers][loco-app]
 
 ## TODO: Improving speed
 
