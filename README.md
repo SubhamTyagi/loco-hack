@@ -53,8 +53,18 @@ s
 ```bash
 $ python bot2.py
 ```
+This bot will run in demo mode by default , for run live game set ```demo= False``` at line 
+[129](https://github.com/SubhamTyagi/loco-hack/blob/e16b9d4dcd6da3c10a673020f7622db1ac77cbc1/bot2.py#L129)
+## STEP TO SET CO-ORDINATES
 
-This bot will run in demo mode by default , for run live game set ```demo= False``` at line ```128```
+ - Take a screenshot of question with option
+ - Go to your phone Settings >Developer option>Pointer location
+ - Switch on Pointer location 
+ - Get both(i.e. top and bottom) co-ordinates of question and all option 
+ - set these values in bot2.py file from line number [91](https://github.com/SubhamTyagi/loco-hack/blob/e16b9d4dcd6da3c10a673020f7622db1ac77cbc1/bot2.py#L91) ,[95](https://github.com/SubhamTyagi/loco-hack/blob/e16b9d4dcd6da3c10a673020f7622db1ac77cbc1/bot2.py#L95) ,[
+98](https://github.com/SubhamTyagi/loco-hack/blob/e16b9d4dcd6da3c10a673020f7622db1ac77cbc1/bot2.py#L98) ,[101](https://github.com/SubhamTyagi/loco-hack/blob/e16b9d4dcd6da3c10a673020f7622db1ac77cbc1/bot2.py#L101)
+
+
 
 
 ## Contributing
