@@ -51,8 +51,9 @@ s
 ```
 ## bot2.py usage
 ```bash
-$ python bot.py
+$ python bot2.py
 ```
+
 This bot will run in demo mode by default , for run live game set ```demo= False``` at line ```128```
 
 
