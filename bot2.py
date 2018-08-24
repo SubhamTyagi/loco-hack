@@ -87,10 +87,11 @@ def get_screen_shot(demo):
     cv2.imwrite(filename2, gray)
 
     i = Image.open(filename2)
-
+    # top cordinate (x1,y1  bottom coordinates x2,y2) y2 is set to bottom of question
     frame = i.crop((0, 0, width, 150))
     frame.save('quest.png')
-
+    
+    # top cordinate (x1,y1  bottom coordinates x2,y2) y1 is above coordinate of option A and y2 is bottom of option A
     frame = i.crop((120, 175, width - 120, 250))
     frame.save('A.png')
 
